@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3244080675285528233}
   - component: {fileID: 1491721347660996483}
   - component: {fileID: 5202217397207189819}
+  - component: {fileID: 4335599570990386873}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -82,6 +83,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.7318156, z: 0.47608376}
   m_Center: {x: 0, y: 1.01571, z: -0.0061885417}
+--- !u!114 &4335599570990386873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463698029646596036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1685af733f92d9140b24d2d84e973d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickItemUp
+  isHammer: 0
+  timeToDestroy: 5
+  timer: 0
 --- !u!1001 &8194202650008166372
 PrefabInstance:
   m_ObjectHideFlags: 0
