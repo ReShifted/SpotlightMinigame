@@ -9,7 +9,7 @@ public class SpotlightManager : MonoBehaviour
     {
         Instantiate(
             Spotlights,
-            floor.transform.position + new Vector3(0, 8, 0),
+            floor.transform.position + new Vector3(0, 10, 0),
             Quaternion.Euler(90, 0, 0)
         );
     }
