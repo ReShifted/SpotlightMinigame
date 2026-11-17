@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 3250986355142507243}
   - component: {fileID: 3721732943596727789}
   - component: {fileID: 280040988545275221}
+  - component: {fileID: 9017339625946919628}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Hammer
@@ -208,6 +209,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &9017339625946919628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318200370614868440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed745d679c95129438e155f4ddfa8d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hammer_PickUp
 --- !u!1 &4807160555958023230
 GameObject:
   m_ObjectHideFlags: 0

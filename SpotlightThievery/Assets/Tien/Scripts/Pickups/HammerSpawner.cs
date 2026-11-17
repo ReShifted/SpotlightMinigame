@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Hammer : MonoBehaviour
+public class HammerSpawner : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
