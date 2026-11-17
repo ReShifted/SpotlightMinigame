@@ -1,46 +1,75 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spotlight : MonoBehaviour
 {
     private Vector3 targetPosition;
-    Vector3 velocity = new Vector3(0, 0, 2);
+    private Vector3 velocity = new(20f, 0f, 20f);
     private Vector3 currentPosition;
-    private float smoothTime = 3;
-    private Collider Floor; // Change from GameObject to Collider
+    private float smoothTime = 0.5f;
+    private float WaitTime = 0.5f;
+    private Collider floor;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        Floor = GetComponent<Collider>();
-        transform.position = currentPosition;
+        if (floor == null)
+        {
+            GameObject floorObject = GameObject.FindWithTag("Floor");
+
+            if (floorObject != null)
+            {
+                floor = floorObject.GetComponent<Collider>();
+            }
+        }
+
+        if (floor == null)
+        {
+            Debug.LogError("No floor collider was found.", this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
+    {
+        currentPosition = transform.position;
+        StartCoroutine(GetNewPosition());
+    }
+
+    private void Update()
     {
 
-        GoToTargetPosition();
-        
     }
+
     public static Vector3 RandomPointInBounds(Bounds bounds)
     {
         return new Vector3(
             Random.Range(bounds.min.x, bounds.max.x),
-            Random.Range(bounds.min.y, bounds.max.y),
-            Random.Range(bounds.min.z, bounds.max.z)
-        );
-    }
-    private void GoToTargetPosition()
-    {
-        targetPosition = RandomPointInBounds(Floor.bounds); // Now Floor has a 'bounds' property
-        currentPosition = Vector3.SmoothDamp(currentPosition, targetPosition, ref velocity, smoothTime);
+            bounds.max.y,
+            Random.Range(bounds.min.z, bounds.max.z));
     }
 
-    private void OnTriggerStay(Collider other)
+    private void GoToTargetPosition()
     {
-        if(other.gameObject.CompareTag("Player"))
+        targetPosition = RandomPointInBounds(floor.bounds);
+        targetPosition += Vector3.up * 8f;
+
+        currentPosition = Vector3.SmoothDamp(
+            currentPosition,
+            targetPosition,
+            ref velocity,
+            smoothTime);
+    }
+    IEnumerator GetNewPosition()
+    {
+        if (floor == null)
         {
-            //other.gameObject.inSpotlight = true;
+            return;
         }
+
+        GoToTargetPosition();
+        transform.position = currentPosition;
+        yield return new WaitForSeconds(WaitTime);
+        GoToTargetPosition();
+
     }
 }
