@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.Hierarchy;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class Spotlight : MonoBehaviour
@@ -8,8 +9,11 @@ public class Spotlight : MonoBehaviour
     [SerializeField] private Vector3 currentPosition;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float currentTime = 5;
+    [SerializeField] private float safeTime = 3;
+    private TempBenPlayerboolcheck playercheck;
+    private Coroutine safeCoroutine;
     private Coroutine movementCoroutine;
-
+    [SerializeField] private bool moveing = true;
     private Vector3 velocity;
     private Collider floor;
 
@@ -34,7 +38,8 @@ public class Spotlight : MonoBehaviour
     private void Start()
     {
         currentPosition = transform.position;
-
+        
+        
         movementCoroutine = StartCoroutine(GetNewPosition());
         StartCoroutine(CountDownToStop());
     }
@@ -51,6 +56,7 @@ public class Spotlight : MonoBehaviour
     {
         while (true)
         {
+            
             targetPosition = RandomPointInBounds(floor.bounds);
             targetPosition += Vector3.up * 8f;
 
@@ -80,8 +86,39 @@ public class Spotlight : MonoBehaviour
         {
             if (movementCoroutine != null)
             {
+                
                 StopCoroutine(movementCoroutine);
+                moveing = false;
             }
+        }
+    }
+
+    private IEnumerator CountDownToSafe()
+    {
+        while (safeTime > 0)
+        {
+            safeTime -= Time.deltaTime;
+            yield return null;
+            
+        }
+        if(playercheck != null && safeTime <= 0)
+        {
+            playercheck.SetInsideSpotlight(true);
+
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && moveing == false)
+        {
+            playercheck = other.GetComponent<TempBenPlayerboolcheck>();
+            StartCoroutine(CountDownToSafe());
+            return;
+        }
+
+        if (playercheck != null)
+        {
+            
         }
     }
 }
