@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2026641777715898462}
   - component: {fileID: 3069842164670492323}
   - component: {fileID: -5293105897389300249}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,3 +167,4 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   currentPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 15
+  currentTime: 5
