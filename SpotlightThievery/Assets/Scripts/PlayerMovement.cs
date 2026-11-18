@@ -33,16 +33,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isStunned)
         {
-            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
             stunTimer -= Time.fixedDeltaTime;
+
             if (stunTimer <= 0f)
             {
                 isStunned = false;
                 stunImmuneTimer = stunImmuneDuration;
             }
-            Debug.Log("Player is stunned. Stun timer: " + stunTimer);
+
             return;
         }
+
         if (stunImmuneTimer > 0f)
         {
             stunImmuneTimer -= Time.fixedDeltaTime;
