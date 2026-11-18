@@ -166,5 +166,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spotlight
   targetPosition: {x: 0, y: 0, z: 0}
   currentPosition: {x: 0, y: 0, z: 0}
-  smoothTime: 0.3
-  WaitTime: 0
+  moveSpeed: 15
