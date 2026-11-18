@@ -164,3 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81abadb5fa434e641aebdc84019d3cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spotlight
+  targetPosition: {x: 0, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
+  smoothTime: 0.3
+  WaitTime: 0
