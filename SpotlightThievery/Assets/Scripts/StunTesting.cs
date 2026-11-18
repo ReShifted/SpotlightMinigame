@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class StunTesting : MonoBehaviour
 {
+
+    public float knockbackForce = 10f;
+    private Rigidbody rb;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -11,6 +20,8 @@ public class StunTesting : MonoBehaviour
             if (playerMovement != null)
             {
                 playerMovement.Stun();
+                Vector3 knockbackDirection = (other.transform.position - transform.position).normalized;
+                rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
             }
         }
     }
