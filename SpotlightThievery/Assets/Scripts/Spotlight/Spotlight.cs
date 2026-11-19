@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.Hierarchy;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class Spotlight : MonoBehaviour
@@ -8,8 +9,12 @@ public class Spotlight : MonoBehaviour
     [SerializeField] private Vector3 currentPosition;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float currentTime = 5;
+    [SerializeField] private float safeStart = 3;
+    [SerializeField] private float safecurrent;
+    private TempBenPlayerboolcheck playercheck;
     private Coroutine movementCoroutine;
-
+    [SerializeField] private bool moveing = true;
+    
     private Vector3 velocity;
     private Collider floor;
 
@@ -27,14 +32,15 @@ public class Spotlight : MonoBehaviour
 
         if (floor == null)
         {
-            Debug.LogError("No floor collider was found.", this);
+            Debug.LogError("No floor collider.", this);
         }
     }
 
     private void Start()
     {
         currentPosition = transform.position;
-
+        safecurrent = safeStart;
+        
         movementCoroutine = StartCoroutine(GetNewPosition());
         StartCoroutine(CountDownToStop());
     }
@@ -51,6 +57,7 @@ public class Spotlight : MonoBehaviour
     {
         while (true)
         {
+            
             targetPosition = RandomPointInBounds(floor.bounds);
             targetPosition += Vector3.up * 8f;
 
@@ -80,8 +87,49 @@ public class Spotlight : MonoBehaviour
         {
             if (movementCoroutine != null)
             {
+                
                 StopCoroutine(movementCoroutine);
+                moveing = false;
             }
+        }
+    }
+
+    private IEnumerator CountDownToSafe()
+    {
+        while (safecurrent > 0 && moveing == false && playercheck.insideSpotlight == true)
+        {
+            safecurrent -= Time.deltaTime;
+            yield return null;
+            
+        }
+        if(playercheck != null && safecurrent <= 0)
+        {
+            playercheck.SetInsideSpotlight(true);
+
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && moveing == false)
+        {
+            playercheck = other.GetComponent<TempBenPlayerboolcheck>();
+            playercheck.insideSpotlight = true;
+            StartCoroutine(CountDownToSafe());
+            return;
+        }
+
+        if (playercheck != null)
+        {
+            
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            playercheck.insideSpotlight = false;
+        StopCoroutine(CountDownToSafe());
+            safecurrent = safeStart;
         }
     }
 }
