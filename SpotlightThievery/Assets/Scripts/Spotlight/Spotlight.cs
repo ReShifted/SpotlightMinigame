@@ -1,14 +1,16 @@
 using System.Collections;
-using Unity.VisualScripting;
+using Unity.Hierarchy;
 using UnityEngine;
 
 public class Spotlight : MonoBehaviour
 {
     [SerializeField] private Vector3 targetPosition;
-    private Vector3 velocity = new(20f, 0f, 20f);
     [SerializeField] private Vector3 currentPosition;
-    [SerializeField] private float smoothTime = 0.5f;
-    [SerializeField] private float WaitTime = 0.5f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float currentTime = 5;
+    private Coroutine movementCoroutine;
+
+    private Vector3 velocity;
     private Collider floor;
 
     private void Awake()
@@ -32,12 +34,9 @@ public class Spotlight : MonoBehaviour
     private void Start()
     {
         currentPosition = transform.position;
-        StartCoroutine(GetNewPosition());
-    }
 
-    private void Update()
-    {
-
+        movementCoroutine = StartCoroutine(GetNewPosition());
+        StartCoroutine(CountDownToStop());
     }
 
     public static Vector3 RandomPointInBounds(Bounds bounds)
@@ -55,25 +54,34 @@ public class Spotlight : MonoBehaviour
             targetPosition = RandomPointInBounds(floor.bounds);
             targetPosition += Vector3.up * 8f;
 
-            velocity = Vector3.zero;
-
-            while (Vector3.Distance(currentPosition, targetPosition) > 0.05f)
+            while (currentPosition != targetPosition)
             {
-                currentPosition = Vector3.SmoothDamp(
+                currentPosition = Vector3.MoveTowards(
                     currentPosition,
                     targetPosition,
-                    ref velocity,
-                    smoothTime);
+                    moveSpeed * Time.deltaTime);
 
                 transform.position = currentPosition;
 
                 yield return null;
             }
+            
 
-            transform.position = targetPosition;
-            currentPosition = targetPosition;
-
-            yield return new WaitForSeconds(WaitTime);
+        }
+    }
+    private IEnumerator CountDownToStop()
+    {
+        while (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+            yield return null;
+        }
+        if (currentTime <= 0)
+        {
+            if (movementCoroutine != null)
+            {
+                StopCoroutine(movementCoroutine);
+            }
         }
     }
 }
