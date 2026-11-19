@@ -17,7 +17,7 @@ public class Spotlight : MonoBehaviour
     private TempBenPlayerboolcheck playercheck;
     private Coroutine movementCoroutine;
     [SerializeField] private bool moveing = true;
-    [SerializeField] private bool claimed = false;
+    public bool claimed = false;
     
     private Vector3 velocity;
     private Collider floor;
@@ -100,17 +100,18 @@ public class Spotlight : MonoBehaviour
 
     private IEnumerator CountDownToSafe()
     {
-        while (safecurrent > 0 && moveing == false && playercheck.insideSpotlight == true && claimed == false && players.Count== 1)
+        while (playercheck != null && safecurrent > 0 && moveing == false && playercheck.insideSpotlight == true && claimed == false && players.Count== 1)
         {
             safecurrent -= Time.deltaTime;
             yield return null;
             
         }
-        if(playercheck != null && safecurrent <= 0)
+        
+        if (playercheck != null && safecurrent <= 0)
         {
             claimed = true;
             playercheck.SetInsideSpotlight(true);
-            
+
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -119,7 +120,7 @@ public class Spotlight : MonoBehaviour
         {
             return;
         }
-
+        else Debug.Log("No Player in spotlight");
         TempBenPlayerboolcheck player = other.GetComponentInParent<TempBenPlayerboolcheck>();
 
         if (player == null || players.Contains(player))

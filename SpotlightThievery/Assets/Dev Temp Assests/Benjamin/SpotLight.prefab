@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2026641777715898462}
   - component: {fileID: 3069842164670492323}
   - component: {fileID: -5293105897389300249}
-  m_Layer: 6
-  m_Name: Spot Light
+  m_Layer: 0
+  m_Name: SpotLight
   m_TagString: Spotlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,9 +164,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81abadb5fa434e641aebdc84019d3cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spotlight
+  players: []
   targetPosition: {x: 0, y: 0, z: 0}
   currentPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 15
   currentTime: 5
-  safeTime: 3
+  safeStart: 3
+  safecurrent: 0
   moveing: 0
+  claimed: 0

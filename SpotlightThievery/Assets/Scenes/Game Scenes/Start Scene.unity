@@ -804,7 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad291becb1a40b84a8f531212418f787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scenechanger
-  scene: Benjmain Scene
+  scene: Game Scene
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
