@@ -3,7 +3,7 @@ using UnityEngine;
 public class TempBenPlayerboolcheck : MonoBehaviour
 {
     public bool safeForNextRound;
-    private bool insideSpotlight;
+    public bool insideSpotlight;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
