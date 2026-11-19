@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
-    public InputActionReference moveAction;
+    public InputActionReference moveActionReference;
+
+    private InputActionAsset inputAsset; // this player's own copy of the asset
+    private InputAction moveAction;      // the Move action inside that copy
     private Rigidbody rb;
 
     public bool isStunned = false;
@@ -17,16 +21,21 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        inputAsset = Instantiate(moveActionReference.asset);
+        moveAction = inputAsset.FindAction(moveActionReference.action.id.ToString());
+
+        inputAsset.devices = new ReadOnlyArray<InputDevice>(new InputDevice[0]);
     }
 
-    private void OnEnable()
-    {
-        moveAction.action.Enable();
-    }
+    private void OnEnable() => moveAction.Enable();
+    private void OnDisable() => moveAction.Disable();
+    private void OnDestroy() => Destroy(inputAsset);
 
-    private void OnDisable()
+    public void AssignDevice(InputDevice device)
     {
-        moveAction.action.Disable();
+        var devices = device != null ? new InputDevice[] { device } : new InputDevice[0];
+        inputAsset.devices = new ReadOnlyArray<InputDevice>(devices);
     }
 
     private void FixedUpdate()
@@ -48,14 +57,16 @@ public class PlayerMovement : MonoBehaviour
         {
             stunImmuneTimer -= Time.fixedDeltaTime;
         }
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
+
+        Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 movement = new Vector3(input.x, 0f, input.y);
         if (movement.magnitude > 1f)
         {
             movement.Normalize();
         }
+
         Vector3 velocity = movement * speed;
-        rb.linearVelocity = new Vector3(velocity.x,rb.linearVelocity.y,velocity.z);
+        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
     }
 
     public void Stun()
