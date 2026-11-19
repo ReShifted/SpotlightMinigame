@@ -5,12 +5,14 @@ public class SpotlightManager : MonoBehaviour
 {
     [SerializeField] private GameObject Spotlights;
     [SerializeField] private GameObject floor;
-    public List<TempBenPlayerboolcheck> players;
+    public List<GameObject> players;
 
     private void Start()
     {
+        
+        players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
 
-        for (int i = 1; i < 3; i++)
+        for (int i = 1; i < players.Count; i++)
         {
             Instantiate(
                 Spotlights,
