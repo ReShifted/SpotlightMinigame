@@ -67,6 +67,12 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 velocity = movement * speed;
         rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
+
+        if (movement.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movement, Vector3.up);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 0.2f);
+        }
     }
 
     public void Stun()

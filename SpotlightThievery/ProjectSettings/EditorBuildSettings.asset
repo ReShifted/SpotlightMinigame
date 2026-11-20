@@ -17,6 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scenes/Win Scene.unity
     guid: 315c6ef14036eb94e9ec450f0de81cc0
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e92fe7c30f353c543a1b25739e87c98c
+  - enabled: 1
+    path: Assets/Scenes/VictoryScreen.unity
+    guid: fb9eff590a9f4004a8b1831c25fd7b8c
+  - enabled: 1
+    path: Assets/Scenes/TestPushScene.unity
+    guid: 5f8d2470c525c2844ac01838fefa32e3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
