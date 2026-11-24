@@ -16,6 +16,7 @@ public class Spotlight : MonoBehaviour
     [SerializeField] private float safecurrent;
     private TempBenPlayerboolcheck playercheck;
     private Coroutine movementCoroutine;
+    private Coroutine safeCoroutine;
     [SerializeField] private bool moveing = true;
     public bool claimed = false;
     
@@ -100,14 +101,14 @@ public class Spotlight : MonoBehaviour
 
     private IEnumerator CountDownToSafe()
     {
-        while (playercheck != null && safecurrent > 0 && moveing == false && playercheck.insideSpotlight == true && claimed == false && players.Count== 1)
+        while (playercheck != null && safecurrent > 0 && !moveing && !claimed && players.Count== 1 && playercheck.insideSpotlight)
         {
             safecurrent -= Time.deltaTime;
             yield return null;
             
         }
-        
-        if (playercheck != null && safecurrent <= 0)
+        safeCoroutine = null;
+        if (playercheck != null && safecurrent <= 0 && players.Count == 1 && !claimed)
         {
             claimed = true;
             playercheck.SetInsideSpotlight(true);
@@ -129,10 +130,17 @@ public class Spotlight : MonoBehaviour
         }
 
         players.Add(player);
-        playercheck = player;
         player.insideSpotlight = true;
-
-        StartCoroutine(CountDownToSafe());
+        safecurrent = safeStart;
+        if (playercheck == null)
+        {
+            playercheck = player;
+        }
+        if (players.Count == 1 && safeCoroutine == null)
+        {
+            StartCoroutine(CountDownToSafe());
+        }
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -144,21 +152,30 @@ public class Spotlight : MonoBehaviour
 
         TempBenPlayerboolcheck player = other.GetComponentInParent<TempBenPlayerboolcheck>();
 
-        if (player == null)
+        if (player == null || !players.Remove(player))
         {
             return;
         }
-
-        if (players.Remove(player))
-        {
-            player.insideSpotlight = false;
-            StopCoroutine(CountDownToSafe());
-            safecurrent = safeStart;
-        }
+        player.insideSpotlight = false;
 
         if (playercheck == player)
         {
             playercheck = players.Count > 0 ? players[0] : null;
         }
+        if(players.Count == 0)
+        {
+            if(safeCoroutine == null)
+            {
+                StopCoroutine(safeCoroutine);
+                safeCoroutine = null;
+            }
+            safecurrent = safeStart;
+            return;
+        }
+        if(players.Count == 1 && safeCoroutine == null && !claimed)
+        {
+            safeCoroutine = StartCoroutine(CountDownToSafe());
+        }
     }
+
 }
