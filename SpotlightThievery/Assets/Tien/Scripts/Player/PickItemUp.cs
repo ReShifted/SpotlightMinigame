@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class PickItemUp : MonoBehaviour
 {
     [SerializeField] public bool isHammer; // Flag to indicate if this pickup is a hammer
-    [SerializeField] private float timeToDestroy = 5f;
+    [SerializeField] private float HammerTime = 5f;
     [SerializeField] private float timer;
 
 
@@ -24,7 +24,7 @@ public class PickItemUp : MonoBehaviour
         if (isHammer)
         {
             timer += Time.deltaTime;
-            if (timer >= timeToDestroy)
+            if (timer >= HammerTime)
             {
                 isHammer = false;
                 timer = 0f;
