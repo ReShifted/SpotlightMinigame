@@ -7,12 +7,12 @@ public class PlayerEliminationManager : MonoBehaviour
     public List<GameObject> spotlights;
     [SerializeField] private int claimed;
     [SerializeField] private Spotlight claimedSpotlight;
-    private PlayerEliminationManager eleimanation;
+    
     private void Start()
     {
         players = new List<TempBenPlayerboolcheck>(FindObjectsByType<TempBenPlayerboolcheck>(FindObjectsSortMode.None));
         spotlights = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spotlight"));
-        eleimanation = FindAnyObjectByType<PlayerEliminationManager>();
+        
     }
     private void Update()
     {
