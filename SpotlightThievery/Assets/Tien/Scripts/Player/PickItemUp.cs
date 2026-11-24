@@ -7,7 +7,7 @@ public class PickItemUp : MonoBehaviour
     [SerializeField] private float timeToDestroy = 5f;
     [SerializeField] private float timer;
 
-    [SerializeField] private GameObject attackRange;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
