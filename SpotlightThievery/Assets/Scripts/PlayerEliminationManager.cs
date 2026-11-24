@@ -24,15 +24,17 @@ public class PlayerEliminationManager : MonoBehaviour
         {
 
             claimedSpotlight = spotlight.GetComponent<Spotlight>();
-            if (claimedSpotlight != null && claimedSpotlight.claimed)
-            {
-                claimed++;
-            }
+
         }
         if (claimed == spotlights.Count)
         {
             DestroyLosers();
         }
+    }
+
+    public void addCliamed(int amount)
+    {
+        claimed += amount;
     }
     private void DestroyLosers()
     {

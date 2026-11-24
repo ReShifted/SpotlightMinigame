@@ -15,11 +15,12 @@ public class Spotlight : MonoBehaviour
     [SerializeField] private float safeStart = 3;
     [SerializeField] private float safecurrent;
     private TempBenPlayerboolcheck playercheck;
+    private PlayerEliminationManager eleimanation;
     private Coroutine movementCoroutine;
     private Coroutine safeCoroutine;
     [SerializeField] private bool moveing = true;
     public bool claimed = false;
-    
+
     private Vector3 velocity;
     private Collider floor;
 
@@ -43,9 +44,10 @@ public class Spotlight : MonoBehaviour
 
     private void Start()
     {
+        eleimanation = FindAnyObjectByType<PlayerEliminationManager>();
         currentPosition = transform.position;
         safecurrent = safeStart;
-        
+
         movementCoroutine = StartCoroutine(GetNewPosition());
         StartCoroutine(CountDownToStop());
     }
@@ -62,7 +64,7 @@ public class Spotlight : MonoBehaviour
     {
         while (true)
         {
-            
+
             targetPosition = RandomPointInBounds(floor.bounds);
             targetPosition += Vector3.up * 8f;
 
@@ -77,7 +79,7 @@ public class Spotlight : MonoBehaviour
 
                 yield return null;
             }
-            
+
 
         }
     }
@@ -92,7 +94,7 @@ public class Spotlight : MonoBehaviour
         {
             if (movementCoroutine != null)
             {
-                
+
                 StopCoroutine(movementCoroutine);
                 moveing = false;
             }
@@ -101,16 +103,17 @@ public class Spotlight : MonoBehaviour
 
     private IEnumerator CountDownToSafe()
     {
-        while (playercheck != null && safecurrent > 0 && !moveing && !claimed && players.Count== 1 && playercheck.insideSpotlight)
+        while (playercheck != null && safecurrent > 0 && !moveing && !claimed && players.Count == 1 && playercheck.insideSpotlight)
         {
             safecurrent -= Time.deltaTime;
             yield return null;
-            
+
         }
         safeCoroutine = null;
         if (playercheck != null && safecurrent <= 0 && players.Count == 1 && !claimed)
         {
             claimed = true;
+            eleimanation.addCliamed(1);
             playercheck.SetInsideSpotlight(true);
 
         }
@@ -124,11 +127,6 @@ public class Spotlight : MonoBehaviour
         else Debug.Log("No Player in spotlight");
         TempBenPlayerboolcheck player = other.GetComponentInParent<TempBenPlayerboolcheck>();
 
-        if (player == null || players.Contains(player))
-        {
-            return;
-        }
-
         players.Add(player);
         player.insideSpotlight = true;
         safecurrent = safeStart;
@@ -140,7 +138,7 @@ public class Spotlight : MonoBehaviour
         {
             StartCoroutine(CountDownToSafe());
         }
-        
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -156,26 +154,29 @@ public class Spotlight : MonoBehaviour
         {
             return;
         }
+
         player.insideSpotlight = false;
 
         if (playercheck == player)
         {
             playercheck = players.Count > 0 ? players[0] : null;
         }
-        if(players.Count == 0)
+
+        if (players.Count == 0)
         {
-            if(safeCoroutine == null)
+            if (safeCoroutine != null)
             {
                 StopCoroutine(safeCoroutine);
                 safeCoroutine = null;
             }
+
             safecurrent = safeStart;
             return;
         }
-        if(players.Count == 1 && safeCoroutine == null && !claimed)
+
+        if (players.Count == 1 && safeCoroutine == null && !claimed)
         {
             safeCoroutine = StartCoroutine(CountDownToSafe());
         }
     }
-
 }
