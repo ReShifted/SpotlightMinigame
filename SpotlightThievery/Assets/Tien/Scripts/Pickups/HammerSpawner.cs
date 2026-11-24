@@ -44,7 +44,7 @@ public class HammerSpawner : MonoBehaviour
         if (spawnInterval <= 0)
         {
             spawnHammers = true;
-            spawnInterval = randomNum; // Reset the spawn interval
+            spawnInterval = randomNum; // Reset the spawn interval to random num in range of min and max spawn interval
         }
         if (spawnHammers == false)
             spawnInterval -= Time.deltaTime;
@@ -60,7 +60,7 @@ public class HammerSpawner : MonoBehaviour
     }
     private void SpawnHammers()
     {
-        for (int i = 0; i < Random.Range(minHammers,maxHammers); i++)
+        for (int i = 0; i < Random.Range(minHammers,maxHammers); i++) // Spawn a random number of hammers between minHammers and maxHammers
         {       
             Vector3 spawnPosition = RandomPointToSpawn(groundBound);
             Vector3 targetSpawnPosition =  new Vector3(spawnPosition.x, spawnPosition.y + 0.5f, spawnPosition.z); // Adjust the y position to be above the ground
