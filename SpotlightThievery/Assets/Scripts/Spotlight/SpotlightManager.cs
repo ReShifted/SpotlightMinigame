@@ -1,13 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SpotlightManager : MonoBehaviour
+public class SpotlightManager : MonoBehaviour   
 {
     [SerializeField] private GameObject Spotlights;
     [SerializeField] private GameObject floor;
+    public List<GameObject> players;
 
-    private void Start()
+    private void Awake()
     {
-        for (int i = 0; i < 3; i++)
+
+        players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+
+        for (int i = 1; i < players.Count; i++)
         {
             Instantiate(
                 Spotlights,

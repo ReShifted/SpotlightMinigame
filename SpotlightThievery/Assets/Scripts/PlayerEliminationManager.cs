@@ -16,7 +16,7 @@ public class PlayerEliminationManager : MonoBehaviour
     }
     private void Update()
     {
-        
+        SpotlightCheck();
     }
     private void SpotlightCheck()
     {

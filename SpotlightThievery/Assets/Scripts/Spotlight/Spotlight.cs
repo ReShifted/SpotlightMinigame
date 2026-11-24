@@ -1,10 +1,13 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Hierarchy;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class Spotlight : MonoBehaviour
 {
+    public List<TempBenPlayerboolcheck> players = new List<TempBenPlayerboolcheck>();
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private Vector3 currentPosition;
     [SerializeField] private float moveSpeed = 5f;
@@ -13,7 +16,9 @@ public class Spotlight : MonoBehaviour
     [SerializeField] private float safecurrent;
     private TempBenPlayerboolcheck playercheck;
     private Coroutine movementCoroutine;
+    private Coroutine safeCoroutine;
     [SerializeField] private bool moveing = true;
+    public bool claimed = false;
     
     private Vector3 velocity;
     private Collider floor;
@@ -96,40 +101,81 @@ public class Spotlight : MonoBehaviour
 
     private IEnumerator CountDownToSafe()
     {
-        while (safecurrent > 0 && moveing == false && playercheck.insideSpotlight == true)
+        while (playercheck != null && safecurrent > 0 && !moveing && !claimed && players.Count== 1 && playercheck.insideSpotlight)
         {
             safecurrent -= Time.deltaTime;
             yield return null;
             
         }
-        if(playercheck != null && safecurrent <= 0)
+        safeCoroutine = null;
+        if (playercheck != null && safecurrent <= 0 && players.Count == 1 && !claimed)
         {
+            claimed = true;
             playercheck.SetInsideSpotlight(true);
 
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && moveing == false)
+        if (!other.CompareTag("Player") || moveing || claimed)
         {
-            playercheck = other.GetComponent<TempBenPlayerboolcheck>();
-            playercheck.insideSpotlight = true;
-            StartCoroutine(CountDownToSafe());
+            return;
+        }
+        else Debug.Log("No Player in spotlight");
+        TempBenPlayerboolcheck player = other.GetComponentInParent<TempBenPlayerboolcheck>();
+
+        if (player == null || players.Contains(player))
+        {
             return;
         }
 
-        if (playercheck != null)
+        players.Add(player);
+        player.insideSpotlight = true;
+        safecurrent = safeStart;
+        if (playercheck == null)
         {
-            
+            playercheck = player;
         }
+        if (players.Count == 1 && safeCoroutine == null)
+        {
+            StartCoroutine(CountDownToSafe());
+        }
+        
     }
+
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
         {
-            playercheck.insideSpotlight = false;
-        StopCoroutine(CountDownToSafe());
+            return;
+        }
+
+        TempBenPlayerboolcheck player = other.GetComponentInParent<TempBenPlayerboolcheck>();
+
+        if (player == null || !players.Remove(player))
+        {
+            return;
+        }
+        player.insideSpotlight = false;
+
+        if (playercheck == player)
+        {
+            playercheck = players.Count > 0 ? players[0] : null;
+        }
+        if(players.Count == 0)
+        {
+            if(safeCoroutine == null)
+            {
+                StopCoroutine(safeCoroutine);
+                safeCoroutine = null;
+            }
             safecurrent = safeStart;
+            return;
+        }
+        if(players.Count == 1 && safeCoroutine == null && !claimed)
+        {
+            safeCoroutine = StartCoroutine(CountDownToSafe());
         }
     }
+
 }

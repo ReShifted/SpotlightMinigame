@@ -8,6 +8,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Benjmain Scene.unity
+    guid: f70ebd15c1ef7d44598bc986b9c0c349
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/Game Scene.unity
+    guid: c6cfdc7f59d90664eb9d35b281546881
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/Win Scene.unity
+    guid: 315c6ef14036eb94e9ec450f0de81cc0
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e92fe7c30f353c543a1b25739e87c98c
+  - enabled: 1
+    path: Assets/Scenes/VictoryScreen.unity
+    guid: fb9eff590a9f4004a8b1831c25fd7b8c
+  - enabled: 1
+    path: Assets/Scenes/TestPushScene.unity
+    guid: 5f8d2470c525c2844ac01838fefa32e3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
