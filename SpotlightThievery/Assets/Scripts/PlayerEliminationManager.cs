@@ -24,6 +24,10 @@ public class PlayerEliminationManager : MonoBehaviour
 
     private void Update()
     {
+
+        players.RemoveAll(p => p == null);
+        spotlights.RemoveAll(s => s == null);
+
         if (spotlights.Count > 0 && claimed >= spotlights.Count && !AllSpotlightsClaimed)
         {
             AllSpotlightsClaimed = true;
@@ -38,33 +42,38 @@ public class PlayerEliminationManager : MonoBehaviour
 
     private void EndRound()
     {
-
         for (int i = players.Count - 1; i >= 0; i--)
         {
             TempBenPlayerboolcheck player = players[i];
-            if (player != null && !player.safeForNextRound)
+
+            if (player == null)
+            {
+                players.RemoveAt(i);
+                continue;
+            }
+
+            if (!player.safeForNextRound)
             {
                 Destroy(player.gameObject);
                 players.RemoveAt(i);
             }
-            else if (player != null)
+            else
             {
-
                 player.safeForNextRound = false;
                 player.insideSpotlight = false;
             }
         }
 
-
         foreach (GameObject spotlight in spotlights)
         {
             if (spotlight != null)
             {
+
+                spotlight.tag = "Untagged";
                 Destroy(spotlight);
             }
         }
         spotlights.Clear();
-
 
         claimed = 0;
         AllSpotlightsClaimed = false;
@@ -72,7 +81,6 @@ public class PlayerEliminationManager : MonoBehaviour
         if (players.Count > 1 && spotlightManager != null)
         {
             spotlightManager.SpawnSpotlights(players.Count);
-
             spotlights = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spotlight"));
         }
         else if (players.Count == 1)
