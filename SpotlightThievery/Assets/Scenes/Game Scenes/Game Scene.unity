@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66387427daf5314c849180d64eaa791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpotlightManager
-  spotlightPrefab: {fileID: 0}
+  spotlightPrefab: {fileID: 1513869553321601793, guid: cf7dfbea8e99f464fa054a798e36b52a, type: 3}
   floor: {fileID: 1410844905}
 --- !u!4 &1542933582
 Transform:
