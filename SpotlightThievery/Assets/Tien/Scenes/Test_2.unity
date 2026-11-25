@@ -1027,8 +1027,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::attack_hammer
   hammerRange: {fileID: 6751493770628167163}
-  playerPickup: {fileID: 599092983}
-  attackDelay: 0.5
+  player: {fileID: 599092983}
+  timer: 0.1
+  attackDelay: 0.1
 --- !u!114 &1164268014 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1321494693245613323, guid: 2ee7307877297324a8aa185ad425c7d7, type: 3}
@@ -2077,8 +2078,8 @@ Transform:
   m_GameObject: {fileID: 6751493770628167163}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.482}
-  m_LocalScale: {x: 0.68461895, y: 1.6343591, z: 0.68461895}
+  m_LocalPosition: {x: 0, y: 0, z: 1.53}
+  m_LocalScale: {x: 1.8945056, y: 1.8077645, z: 1.5775936}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1157631721}
@@ -2270,9 +2271,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6751493770628167163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80250fa741bbc4a4a9b62c4c5035022e, type: 3}
+  m_Script: {fileID: 11500000, guid: a34723cc8fc56a746b760dcdffa392bd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StunTesting
+  m_EditorClassIdentifier: Assembly-CSharp::Stun
   knockbackForce: 10
 --- !u!1001 &7720697048852726477
 PrefabInstance:
