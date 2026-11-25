@@ -6,18 +6,15 @@ public class attack_hammer : MonoBehaviour
     [SerializeField] private GameObject hammerRange;
     private Collider hammerRangeCollider;
 
-
-    [SerializeField] private GameObject playerPickup;
-
-    private float timer = 0.5f;
+    [SerializeField] private GameObject player;
+    [SerializeField] private float timer = 0.1f;
     
 
-    [SerializeField] private float attackDelay = 0.5f; //delay time for the attack, can be adjusted in the inspector
+    [SerializeField] private float attackDelay = 0.1f; //delay time for the attack, can be adjusted in the inspector
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         hammerRangeCollider = hammerRange.GetComponent<Collider>();
-        
     }
 
     // Update is called once per frame
@@ -30,10 +27,9 @@ public class attack_hammer : MonoBehaviour
         }
         if (Keyboard.current.spaceKey.wasPressedThisFrame) //input system for attack
         {
-            if (playerPickup.GetComponent<PickItemUp>().isHammer) //check if player has hammer
+            if (player.GetComponent<PickItemUp>().isHammer) //check if player has hammer
             {
                 attack();
-
             }
         }
     }
