@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2073095735070065041
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.564696
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.92273796
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.68396
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6b6c88dc1617ba542b2d5a9d7793da18, type: 2}
+    - target: {fileID: 919132149155446097, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
+      propertyPath: m_Name
+      value: SledgeHammer_Balloon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8480a7934ed8447449d81876e47234b5, type: 3}
