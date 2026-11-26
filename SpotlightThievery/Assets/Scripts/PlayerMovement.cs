@@ -1,4 +1,5 @@
 
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
@@ -20,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private float stunImmuneDuration = 3f;
     private float stunImmuneTimer = 0f;
 
-
+    private attack_hammer attack;
+    private PickItemUp item;
 
     private void Awake()
     {
@@ -33,9 +35,10 @@ public class PlayerMovement : MonoBehaviour
         hammerSmashAction = inputAsset.FindAction(HammerSmashReference.action.id.ToString());
 
         inputAsset.devices = new ReadOnlyArray<InputDevice>(new InputDevice[0]);
+        attack = GetComponent<attack_hammer>();
+        item = GetComponent<PickItemUp>();
 
-      
-        
+
     }
 
     private void OnEnable()
@@ -103,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         if (hammerSmashAction.WasPressedThisFrame())
         {
             Debug.Log(gameObject.name + " Attack: " +hammerSmashAction.activeControl?.device.displayName);
-            OnAttack();
+            HammerAttack();
         }
     }
 
@@ -115,14 +118,14 @@ public class PlayerMovement : MonoBehaviour
             stunTimer = stunDuration;
         }
     }
-    private void OnAttack()
+    private void HammerAttack()
     {
         if (isStunned)
             return;
 
-        if (GetComponent<PickItemUp>().isHammer) //check if player has hammer
+        if (item.isHammer)
         {
-            GetComponent<attack_hammer>().attack();
+            attack.attack();
         }
     }
 }

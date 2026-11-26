@@ -31,6 +31,7 @@ public class attack_hammer : MonoBehaviour
     }
     public void attack()
     {
+        Debug.Log(gameObject.name + " is attacking | Hammer: " +hammer.name + " | ID: " + hammer.GetInstanceID(),hammer);
         hammer.SetActive(true);
         //hammerRangeCollider.enabled = true;
         timer = attackDelay;
