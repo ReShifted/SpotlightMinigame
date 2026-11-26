@@ -28,13 +28,6 @@ public class attack_hammer : MonoBehaviour
             //hammerRangeCollider.enabled = false;
             hammer.SetActive(false);
         }
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) //input system for attack
-        {
-            if (player.GetComponent<PickItemUp>().isHammer) //check if player has hammer
-            {
-                attack();
-            }
-        }
     }
     public void attack()
     {
