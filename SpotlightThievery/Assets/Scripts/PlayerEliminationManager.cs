@@ -3,48 +3,89 @@ using UnityEngine;
 
 public class PlayerEliminationManager : MonoBehaviour
 {
-    public List<TempBenPlayerboolcheck> players;
-    public List<GameObject> spotlights;
+    public List<TempBenPlayerboolcheck> players = new List<TempBenPlayerboolcheck>();
+    public List<GameObject> spotlights = new List<GameObject>();
+    private SpotlightManager spotlightManager;
+
     [SerializeField] private int claimed;
-    [SerializeField] private Spotlight claimedSpotlight;
-    
+    public bool AllSpotlightsClaimed = false;
+
     private void Start()
+    {
+        spotlightManager = FindAnyObjectByType<SpotlightManager>();
+        RefreshLists();
+    }
+
+    public void RefreshLists()
     {
         players = new List<TempBenPlayerboolcheck>(FindObjectsByType<TempBenPlayerboolcheck>(FindObjectsSortMode.None));
         spotlights = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spotlight"));
-        
     }
+
     private void Update()
     {
-        SpotlightCheck();
-    }
-    private void SpotlightCheck()
-    {
-        foreach (GameObject spotlight in spotlights)
-        {
 
-            claimedSpotlight = spotlight.GetComponent<Spotlight>();
+        players.RemoveAll(p => p == null);
+        spotlights.RemoveAll(s => s == null);
 
-        }
-        if (claimed == spotlights.Count)
+        if (spotlights.Count > 0 && claimed >= spotlights.Count && !AllSpotlightsClaimed)
         {
-            DestroyLosers();
+            AllSpotlightsClaimed = true;
+            EndRound();
         }
     }
 
-    public void addCliamed(int amount)
+    public void AddClaimed(int amount)
     {
         claimed += amount;
     }
-    private void DestroyLosers()
+
+    private void EndRound()
     {
-        foreach (TempBenPlayerboolcheck player in players)
+        for (int i = players.Count - 1; i >= 0; i--)
         {
-            if (player != null && !player.safeForNextRound)
+            TempBenPlayerboolcheck player = players[i];
+
+            if (player == null)
             {
-                Destroy(player.transform.gameObject);
+                players.RemoveAt(i);
+                continue;
             }
+
+            if (!player.safeForNextRound)
+            {
+                Destroy(player.gameObject);
+                players.RemoveAt(i);
+            }
+            else
+            {
+                player.safeForNextRound = false;
+                player.insideSpotlight = false;
+            }
+        }
+
+        foreach (GameObject spotlight in spotlights)
+        {
+            if (spotlight != null)
+            {
+
+                spotlight.tag = "Untagged";
+                Destroy(spotlight);
+            }
+        }
+        spotlights.Clear();
+
+        claimed = 0;
+        AllSpotlightsClaimed = false;
+
+        if (players.Count > 1 && spotlightManager != null)
+        {
+            spotlightManager.SpawnSpotlights(players.Count);
+            spotlights = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spotlight"));
+        }
+        else if (players.Count == 1)
+        {
+            Debug.Log($"{players[0].name} wins the game!");
         }
     }
 }
-

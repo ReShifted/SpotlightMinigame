@@ -1029,7 +1029,7 @@ MonoBehaviour:
   hammerRange: {fileID: 6751493770628167163}
   player: {fileID: 599092983}
   timer: 0.1
-  attackDelay: 0.1
+  attackDelay: 0.5
 --- !u!114 &1164268014 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1321494693245613323, guid: 2ee7307877297324a8aa185ad425c7d7, type: 3}
@@ -2078,8 +2078,8 @@ Transform:
   m_GameObject: {fileID: 6751493770628167163}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.53}
-  m_LocalScale: {x: 1.8945056, y: 1.8077645, z: 1.5775936}
+  m_LocalPosition: {x: 0.054, y: 0.486, z: 1.863}
+  m_LocalScale: {x: 1.0235053, y: 2.443367, z: 1.4442683}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1157631721}
