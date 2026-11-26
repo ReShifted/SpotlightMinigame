@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34723cc8fc56a746b760dcdffa392bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stun
-  knockbackForce: 10
+  knockbackForce: 3
 --- !u!1001 &1248072220431849293
 PrefabInstance:
   m_ObjectHideFlags: 0

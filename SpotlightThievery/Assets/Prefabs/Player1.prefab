@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickItemUp
   isHammer: 0
-  HammerTime: 90
+  HammerTime: 5
   timer: 0
 --- !u!114 &5958814910942727087
 MonoBehaviour:
