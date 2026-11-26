@@ -1,4 +1,4 @@
-using UnityEditor.Timeline.Actions;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
@@ -20,8 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float stunImmuneDuration = 3f;
     private float stunImmuneTimer = 0f;
 
-    private ScriptableObject pickItemUp;
-    private GameObject attackHammer;
+
 
     private void Awake()
     {
