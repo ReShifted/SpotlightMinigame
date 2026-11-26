@@ -95,6 +95,10 @@ public class PlayerMovement : MonoBehaviour
             rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 0.2f);
         }
 
+
+    }
+    private void Update()
+    {
         if (hammerSmashAction.WasPressedThisFrame())
         {
             OnAttack();
