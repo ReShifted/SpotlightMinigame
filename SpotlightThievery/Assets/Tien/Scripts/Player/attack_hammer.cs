@@ -3,8 +3,10 @@ using UnityEngine.InputSystem;
 
 public class attack_hammer : MonoBehaviour
 {
-    [SerializeField] private GameObject hammerRange;
+    //[SerializeField] private GameObject hammerRange;
+    [SerializeField] private GameObject hammer;
     private Collider hammerRangeCollider;
+    
 
     [SerializeField] private GameObject player;
     [SerializeField] private float timer = 0.1f;
@@ -14,7 +16,7 @@ public class attack_hammer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        hammerRangeCollider = hammerRange.GetComponent<Collider>();
+        //hammerRangeCollider = hammerRange.GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -23,7 +25,8 @@ public class attack_hammer : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            hammerRangeCollider.enabled = false;
+            //hammerRangeCollider.enabled = false;
+            hammer.SetActive(false);
         }
         if (Keyboard.current.spaceKey.wasPressedThisFrame) //input system for attack
         {
@@ -35,7 +38,8 @@ public class attack_hammer : MonoBehaviour
     }
     public void attack()
     {
-        hammerRangeCollider.enabled = true;
+        hammer.SetActive(true);
+        //hammerRangeCollider.enabled = true;
         timer = attackDelay;
     }
 }

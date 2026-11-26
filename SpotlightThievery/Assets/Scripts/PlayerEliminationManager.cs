@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerEliminationManager : MonoBehaviour
 {
@@ -86,6 +87,7 @@ public class PlayerEliminationManager : MonoBehaviour
         else if (players.Count == 1)
         {
             Debug.Log($"{players[0].name} wins the game!");
+            SceneManager.LoadScene("Win scene");
         }
     }
 }
