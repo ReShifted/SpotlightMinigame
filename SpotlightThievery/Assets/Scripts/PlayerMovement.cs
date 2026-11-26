@@ -1,3 +1,4 @@
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
@@ -6,9 +7,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public InputActionReference moveActionReference;
+    public InputActionReference HammerSmashReference;
 
     private InputActionAsset inputAsset; // this player's own copy of the asset
     private InputAction moveAction;      // the Move action inside that copy
+    private InputAction hammerSmashAction; // the HammerSmash action inside that copy
     private Rigidbody rb;
 
     public bool isStunned = false;
@@ -17,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     private float stunImmuneDuration = 3f;
     private float stunImmuneTimer = 0f;
 
+    private ScriptableObject pickItemUp;
+    private GameObject attackHammer;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,12 +30,28 @@ public class PlayerMovement : MonoBehaviour
 
         inputAsset = Instantiate(moveActionReference.asset);
         moveAction = inputAsset.FindAction(moveActionReference.action.id.ToString());
+        hammerSmashAction = inputAsset.FindAction(HammerSmashReference.action.id.ToString());
 
         inputAsset.devices = new ReadOnlyArray<InputDevice>(new InputDevice[0]);
+
+      
+        
     }
 
-    private void OnEnable() => moveAction.Enable();
-    private void OnDisable() => moveAction.Disable();
+    private void OnEnable()
+    {
+        moveAction.Enable();
+        hammerSmashAction.Enable();
+
+    }
+    private void OnDisable()
+    {
+       
+        moveAction.Disable();
+        hammerSmashAction.Disable();
+    }
+
+
     private void OnDestroy() => Destroy(inputAsset);
 
     public void AssignDevice(InputDevice device)
@@ -73,6 +95,11 @@ public class PlayerMovement : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(movement, Vector3.up);
             rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 0.2f);
         }
+
+        if (hammerSmashAction.WasPressedThisFrame())
+        {
+            OnAttack();
+        }
     }
 
     public void Stun()
@@ -81,6 +108,16 @@ public class PlayerMovement : MonoBehaviour
         {
             isStunned = true;
             stunTimer = stunDuration;
+        }
+    }
+    private void OnAttack()
+    {
+        if (isStunned)
+            return;
+
+        if (GetComponent<PickItemUp>().isHammer) //check if player has hammer
+        {
+            GetComponent<attack_hammer>().attack();
         }
     }
 }

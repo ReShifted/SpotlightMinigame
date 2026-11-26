@@ -33,7 +33,7 @@ public class attack_hammer : MonoBehaviour
             }
         }
     }
-    private void attack()
+    public void attack()
     {
         hammerRangeCollider.enabled = true;
         timer = attackDelay;

@@ -14,7 +14,7 @@ public class Stun : MonoBehaviour
             {
                 playerMovement.Stun();
                 Vector3 knockbackDirection = (other.transform.position - transform.parent.position).normalized;
-                playerRb.AddForce(knockbackDirection * knockbackForce * 2, ForceMode.Impulse);
+                playerRb.AddForce(knockbackDirection * knockbackForce * 3, ForceMode.Impulse);
             }
         }
     }
