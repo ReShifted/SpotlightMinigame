@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation.Interpolate;
 
         inputAsset = Instantiate(moveActionReference.asset);
+        
         moveAction = inputAsset.FindAction(moveActionReference.action.id.ToString());
         hammerSmashAction = inputAsset.FindAction(HammerSmashReference.action.id.ToString());
 
@@ -101,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (hammerSmashAction.WasPressedThisFrame())
         {
+            Debug.Log(gameObject.name + " Attack: " +hammerSmashAction.activeControl?.device.displayName);
             OnAttack();
         }
     }
