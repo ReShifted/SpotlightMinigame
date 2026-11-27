@@ -46,7 +46,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 17.35
+  m_Intensity: 50
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 20.34674
@@ -171,5 +171,5 @@ MonoBehaviour:
   currentTime: 5
   safeStart: 3
   safecurrent: 0
-  moveing: 0
+  moving: 1
   claimed: 0
